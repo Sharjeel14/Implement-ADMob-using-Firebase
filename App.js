@@ -69,7 +69,7 @@ function InterstitialAds() {
   );
 }
 
-export default class ProductDetail extends Component {
+export default class App extends Component {
   clickEventListener() {
     Alert.alert('Success', 'Product has been added to cart');
   }
