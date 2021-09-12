@@ -28,9 +28,6 @@ const adUnitId1 = __DEV__
 const adUnitId2 = __DEV__
   ? TestIds.INTERSTITIAL
   : 'ca-app-pub-8844441377786347/8899677747';
-const adUnitId3 = __DEV__
-  ? TestIds.REWARDED
-  : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
 
 const interstitial = InterstitialAd.createForAdRequest(adUnitId2, {
   requestNonPersonalizedAdsOnly: true,
@@ -64,55 +61,9 @@ function InterstitialAds() {
 
   return (
     <Button
-    style = {{marginTop: 20 }}
       title="Show Interstitial"
       onPress={() => {
         interstitial.show();
-      }}
-    />
-  );
-}
-
-// Rewarded Ad Funtion
-
-const rewarded = RewardedAd.createForAdRequest(adUnitId3, {
-  requestNonPersonalizedAdsOnly: true,
-  keywords: ['fashion', 'clothing'],
-});
-
-function RewardAds() {
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    const eventListener = rewarded.onAdEvent((type, error, reward) => {
-      if (type === RewardedAdEventType.LOADED) {
-        setLoaded(true);
-      }
-
-      if (type === RewardedAdEventType.EARNED_REWARD) {
-        console.log('User earned reward of ', reward);
-      }
-    });
-
-    // Start loading the rewarded ad straight away
-    rewarded.load();
-
-    // Unsubscribe from events on unmount
-    return () => {
-      eventListener();
-    };
-  }, []);
-
-  // No advert ready to show yet
-  if (!loaded) {
-    return null;
-  }
-
-  return (
-    <Button style ={{marginTop: 20 }}
-      title="Show Rewarded Ad"
-      onPress={() => {
-        rewarded.show();
       }}
     />
   );
@@ -185,11 +136,6 @@ export default class ProductDetail extends Component {
            
             <Text style={styles.name}>Super Soft T-Shirt</Text>
             <Text style={styles.price}>$ 12.22</Text>
-
-            {/* Calling Interstitial Ads Function */}
-            <RewardAds />
-
-
 
             <Text style={styles.description}>
               Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
